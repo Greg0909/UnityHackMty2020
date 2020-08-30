@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnObjects : MonoBehaviour
 {
 	public GameObject mesa;
+	public GameObject walkingPoint;
 	private Vector3 puntoDeReferencia;
 
 	int px=2, pz=2;
@@ -12,12 +13,13 @@ public class SpawnObjects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		puntoDeReferencia = this.transform.position;
+		
     }
 
     // Update is called once per frame
     void Update()
     {
+		puntoDeReferencia = this.transform.position;
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
 			
@@ -35,11 +37,23 @@ public class SpawnObjects : MonoBehaviour
 		}
     }
 
-	void spawnTable(float x, float z)
+	public void spawnTable(float x, float z)
 	{
-		float y = 5.3f;
+		//gameObject piso = GameObject.Find("Piso(Clone)");
+		float y = puntoDeReferencia.y + 0.0f;
 		x = puntoDeReferencia.x + x;
 		z = puntoDeReferencia.z + z;
-		Instantiate(mesa, new Vector3(x, y, z), Quaternion.identity);
+		GameObject temp = Instantiate(mesa, new Vector3(x, y, z), Quaternion.identity);
+		temp.tag = "Mesa";
+	}
+
+	public void spawnWalkingPoint(float x, float z)
+	{
+		//gameObject piso = GameObject.Find("Piso(Clone)");
+		float y = puntoDeReferencia.y + 0.1f;
+		x = puntoDeReferencia.x + x + 0.40f;
+		z = puntoDeReferencia.z + z;
+		GameObject temp = Instantiate(walkingPoint, new Vector3(x, y, z), Quaternion.identity);
+		temp.tag = "Mesa";
 	}
 }
